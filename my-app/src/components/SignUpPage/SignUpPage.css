@@ -1,0 +1,68 @@
+/* SignUpPage.css */
+.sign-up-page {
+    background-image: url('https://th.bing.com/th/id/R.6e32878542a4a6b86e640204d951fbff?rik=4%2b8Hjx5WQFvvqg&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fHD-light-blue-backgrounds.jpg&ehk=olHxRL3mqx42J%2flO57tdlgfzAF8UNJkrJpPiPj7vbeY%3d&risl=&pid=ImgRaw&r=0');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+  }
+  
+  .sign-up-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 20px;
+    background-color: white; /* White background for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  }
+  
+  .sign-up-form h1 {
+    color: black; /* Black color for the heading */
+    margin-bottom: 20px;
+  }
+  
+  .sign-up-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc; /* Border for the inputs */
+    border-radius: 4px; /* Rounded corners for inputs */
+  }
+  
+  .sign-up-form button {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px; /* Rounded corners for button */
+    cursor: pointer;
+    width: 100%; /* Full width for the button */
+  }
+  
+  .sign-up-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-button {
+    margin-top: 20px;
+    padding: 10px;
+    padding-left: 85px;
+    padding-right: 85px;
+    font-size: 1em;
+    background-color: #ddffe8; /* Light green color */
+    color: black;
+    border: 1px solid rgb(47, 64, 47); /* Dark green border */
+    border-radius: 4px; /* Rounded corners for button */
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #d2ffd2; /* Slightly darker green on hover */
+  }
+  
