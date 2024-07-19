@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../header/header';
 import './SignUpPage.css';
 
 const API_KEY = 'AIzaSyDMGEPT6_WQcPUgRPQu-lYfN6dO2K-rEv4';
@@ -43,6 +44,8 @@ function SignUpPage() {
   };
 
   return (
+    <Fragment>
+      <Header />
     <div className="sign-up-page">
       <form onSubmit={handleSubmit} className="sign-up-form">
         <h1>Sign Up</h1>
@@ -71,6 +74,7 @@ function SignUpPage() {
         <Link to="/login" className="login-link">Have an account? Login</Link>
       </button>
     </div>
+    </Fragment>
   );
 }
 

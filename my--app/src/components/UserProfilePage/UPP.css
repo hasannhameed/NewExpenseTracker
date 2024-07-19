@@ -1,0 +1,35 @@
+
+  .contact-details {
+    padding: 20px;
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cancel-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds space between input elements */
+    margin-top: 20px; /* Adds space below the header */
+  }
+  
+  .update-button {
+    background-color: brown;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px; /* Adds space above the button */
+  }
+  
