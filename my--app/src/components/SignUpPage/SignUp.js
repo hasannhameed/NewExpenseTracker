@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './SignUpPage.css';
 
 const API_KEY = 'AIzaSyDMGEPT6_WQcPUgRPQu-lYfN6dO2K-rEv4';
@@ -8,7 +9,6 @@ function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,12 +46,7 @@ function SignUpPage() {
     <div className="sign-up-page">
       <form onSubmit={handleSubmit} className="sign-up-form">
         <h1>Sign Up</h1>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+       
         <input
           type="email"
           placeholder="Email"
@@ -72,7 +67,9 @@ function SignUpPage() {
         />
         <button type="submit">Sign Up</button>
       </form>
-      <button className="login-button">Have an account? Login</button>
+      <button className="login-button">
+        <Link to="/login" className="login-link">Have an account? Login</Link>
+      </button>
     </div>
   );
 }
