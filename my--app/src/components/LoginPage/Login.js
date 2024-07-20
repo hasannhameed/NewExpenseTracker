@@ -1,31 +1,21 @@
+// src/components/Login.js
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import './Login.css'
-
-const API_KEY = 'AIzaSyDMGEPT6_WQcPUgRPQu-lYfN6dO2K-rEv4';
-const LOGIN_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const auth = getAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(LOGIN_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, returnSecureToken: true })
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert('User logged in successfully!');
-        console.log(data);
-        navigate('/ExpenseTracker')
-      } else {
-        throw new Error(data.error.message || 'Failed to log in');
-      }
+      await signInWithEmailAndPassword(auth, email, password);
+      alert('User logged in successfully!');
+      navigate('/ExpenseTracker');
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Error logging in: ' + error.message);
@@ -50,7 +40,9 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
-      <button className="signup-button"><Link to='/'>Don't have an account? Sign Up</Link></button>
+      <button className="signup-button">
+        <Link to='/'>Don't have an account? Sign Up</Link>
+      </button>
     </div>
   );
 };

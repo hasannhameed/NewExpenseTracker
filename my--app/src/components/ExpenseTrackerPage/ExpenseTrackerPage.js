@@ -6,9 +6,9 @@ const ExpenseTrackerPage = () => {
   return (
     <div className="expense-tracker-page">
       <nav className="nav-container">
-        <p className="nav-title">Welcome to the ExpenseTracker!!!</p>
+        <p className="nav-title"><strong>Welcome to the ExpenseTracker!!!</strong></p>
         <p className="nav-profile">
-          Your profile is incomplete 
+          <strong>Your profile is incomplete </strong>
           <Link to="/UserProfile"> Complete Now</Link>
         </p>
       </nav>

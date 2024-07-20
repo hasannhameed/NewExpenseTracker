@@ -1,5 +1,35 @@
-
+.user-profile-page {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nav-container {
+    padding: 0 20px;
+  }
+  
+  .nav-title {
+    margin: 0;
+  }
+  
+  .nav-profile {
+    background-color: rgb(211, 193, 196);
+    margin-top: 5px;
+    margin-bottom: 10px;
+    
+  }
+  
+  .nav-profile a {
+    color: blue;
+    text-decoration: none;
+  }
+  
+  .nav-profile a:hover {
+    color: darkblue;
+  }
+  
   .contact-details {
+    margin-left: 20%;
+    margin-right: 20%;
     padding: 20px;
   }
   
@@ -10,9 +40,9 @@
   }
   
   .cancel-button {
-    background-color: red;
-    color: white;
-    border: none;
+
+    color: red;
+    border-color: 5px solid red;
     padding: 10px 20px;
     cursor: pointer;
   }
@@ -24,12 +54,25 @@
     margin-top: 20px; /* Adds space below the header */
   }
   
+  .input-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input-container input {
+    margin-bottom: 15px;
+    padding: 8px;
+    width: 50%;
+    box-sizing: border-box;
+  }
+  
   .update-button {
-    background-color: brown;
+    background-color: rgb(165, 108, 108);
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     margin-top: 20px; /* Adds space above the button */
+    align-self: flex-start; /* Aligns the button to the left */
   }
   

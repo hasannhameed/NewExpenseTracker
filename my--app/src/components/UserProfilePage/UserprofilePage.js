@@ -1,34 +1,88 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './UPP.css' // Import your CSS file here
+// src/components/UserProfilePage.js
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { auth, db } from './firebase';
+import { updateProfile } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import './UPP.css'; 
 
 const UserprofilePage = () => {
+  const [fullName, setFullName] = useState('');
+  const [photoUrl, setPhotoUrl] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleUpdate = async () => {
+    if (!currentUser) {
+      alert('No user is currently logged in.');
+      return;
+    }
+
+    try {
+      await updateProfile(currentUser, {
+        displayName: fullName,
+        photoURL: photoUrl
+      });
+
+      await setDoc(doc(db, 'users', currentUser.uid), {
+        fullName: fullName,
+        photoUrl: photoUrl
+      });
+
+      console.log('User details updated successfully');
+      alert('Profile updated successfully!');
+      setFullName('');
+      setPhotoUrl('');
+    } catch (error) {
+      console.error('Error updating user details:', error);
+      alert('Error updating profile. Please try again.');
+    }
+  };
+
   return (
     <div className="user-profile-page">
       <nav className="nav-container">
-        <p className="nav-title">Winner never quit, Quitter never wins!!!</p>
+        <p className="nav-title"><strong>Winner never quit, Quitter never wins!!!</strong></p>
         <p className="nav-profile">
-          Your profile is 64% completed. A complete profile has a higher chance of landing a job.
-          <br />
+          <strong>Your profile is 64% completed. A complete profile has a<br /> higher chance of landing a job.</strong>
           <Link to="/UserProfile">Complete Now</Link>
         </p>
       </nav>
       <div className="contact-details">
         <div className="header-container">
           <h2>Contact Details</h2>
-          <button className="cancel-button">Cancel</button>
+          <button className="cancel-button"><strong>Cancel</strong></button>
         </div>
         <div className="input-container">
-          <label>Full Name</label>
-          <input type="text" />
-          <label>Profile Photo Url</label>
-          <input type="text" />
-          <button className="update-button">Update</button>
+          <label><i className="fab fa-github"></i><strong> Full Name</strong></label>
+          <input
+            type="text"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+          <label><i className="fas fa-globe"></i><strong> Profile Photo Url</strong></label>
+          <input
+            type="text"
+            value={photoUrl}
+            onChange={(e) => setPhotoUrl(e.target.value)}
+          />
         </div>
+        <button className="update-button" onClick={handleUpdate}>Update</button>
         <hr />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserprofilePage
+export default UserprofilePage;
