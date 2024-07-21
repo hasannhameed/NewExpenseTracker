@@ -20,7 +20,7 @@ function SignUpPage() {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       alert('User registered successfully!');
-      navigate('/UserProfile');
+      navigate('/Login');
     } catch (error) {
       console.error("Error signing up:", error);
       alert('Error signing up: ' + error.message);

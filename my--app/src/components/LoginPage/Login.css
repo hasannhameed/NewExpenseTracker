@@ -66,4 +66,23 @@
   .signup-button:hover {
     background-color: #d2ffd2; /* Slightly darker green on hover */
   }
-  
+  /* src/components/Login.css */
+.verify-email-button {
+  margin-top: 10px;
+  background-color: #4CAF50; /* Green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
