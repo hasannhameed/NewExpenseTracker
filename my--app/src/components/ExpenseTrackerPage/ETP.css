@@ -1,33 +1,100 @@
+/* src/components/ETP.css */
 .expense-tracker-page {
-    display: flex;
-    flex-direction: column;
-  }
-  
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa; /* Optional: adds a background color to the nav */
+  border-bottom: 2px solid black;
+  padding: 10px;
+}
+
+.nav-title {
+  margin: 0;
+  font-size: 1.5em; /* Adjust the font size for larger screens */
+}
+
+.nav-profile {
+  background-color: rgb(220, 200, 202);
+  margin-right: 10%;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.nav-profile a {
+  color: blue; /* Sets the link color */
+  text-decoration: none; /* Underlines the link */
+}
+
+.nav-profile a:hover {
+  color: darkblue; /* Changes the link color on hover */
+}
+
+.logout-button {
+  background-color: brown;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* Responsive styles for iPhone 12 (390px width) */
+@media (max-width: 390px) {
   .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f8f9fa; /* Optional: adds a background color to the nav */
-    border-bottom: 2px solid black;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
   }
-  
+
   .nav-title {
-    margin: 0;
+    font-size: 1em; /* Adjust the font size for smaller screens */
+    margin-bottom: 10px;
   }
-  
+
   .nav-profile {
-    background-color: rgb(220, 200, 202);
-   margin-right: 10%;
-    padding: 5px;
-    border-radius: 10px;
+    margin-right: 0;
+    width: 100%; /* Make the profile section take full width */
+    text-align: center; /* Center the content */
+    padding: 10px; /* Increase padding for better touch area */
+    margin-bottom: 10px; /* Add margin to separate elements */
   }
-  .nav-profile a {
-    color: blue; /* Sets the link color */
-    text-decoration: none; /* Underlines the link */
+
+  .logout-button {
+    text-align: center; /* Center text for button */
+    margin: 10px 0; /* Add margin for separation */
   }
-  
-  .nav-profile a:hover {
-    color: darkblue; /* Changes the link color on hover */
+}
+
+/* Additional styles for other small screens */
+@media (max-width: 600px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
   }
+
+  .nav-title {
+    font-size: 1em; /* Adjust the font size for medium screens */
+    margin-bottom: 10px;
+  }
+
+  .nav-profile {
+    margin-right: 0;
+    width: 70%; /* Make the profile section take full width */
+    text-align: center; /* Center the content */
+    padding: 8px; /* Adjust padding for medium screens */
+    margin-bottom: 10px; /* Add margin to separate elements */
+  }
+
   
-  
+}

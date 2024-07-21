@@ -6,7 +6,7 @@ import { updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import './UPP.css'; 
 
-const UserprofilePage = () => {
+const UserProfilePage = () => {
   const [fullName, setFullName] = useState('');
   const [photoUrl, setPhotoUrl] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
@@ -23,24 +23,32 @@ const UserprofilePage = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    console.log("Update button clicked");
+
     if (!currentUser) {
       alert('No user is currently logged in.');
       return;
     }
 
     try {
+      console.log("Updating profile for user:", currentUser.uid);
+      // Update the user's profile
       await updateProfile(currentUser, {
         displayName: fullName,
         photoURL: photoUrl
       });
 
+      console.log("Profile updated in auth");
+
+      // Save the updated user details in Firestore
       await setDoc(doc(db, 'users', currentUser.uid), {
         fullName: fullName,
         photoUrl: photoUrl
       });
 
-      console.log('User details updated successfully');
+      console.log("User details saved to Firestore");
       alert('Profile updated successfully!');
       setFullName('');
       setPhotoUrl('');
@@ -54,7 +62,7 @@ const UserprofilePage = () => {
     <div className="user-profile-page">
       <nav className="nav-container">
         <p className="nav-title"><strong>Winner never quit, Quitter never wins!!!</strong></p>
-        <p className="nav-profile">
+        <p className="navv-profile">
           <strong>Your profile is 64% completed. A complete profile has a<br /> higher chance of landing a job.</strong>
           <Link to="/UserProfile">Complete Now</Link>
         </p>
@@ -64,7 +72,7 @@ const UserprofilePage = () => {
           <h2>Contact Details</h2>
           <button className="cancel-button"><strong>Cancel</strong></button>
         </div>
-        <div className="input-container">
+        <form onSubmit={handleUpdate} className="input-container">
           <label><i className="fab fa-github"></i><strong> Full Name</strong></label>
           <input
             type="text"
@@ -77,12 +85,12 @@ const UserprofilePage = () => {
             value={photoUrl}
             onChange={(e) => setPhotoUrl(e.target.value)}
           />
-        </div>
-        <button className="update-button" onClick={handleUpdate}>Update</button>
+          <button type="submit" className="update-button">Update</button>
+        </form>
         <hr />
       </div>
     </div>
   );
 };
 
-export default UserprofilePage;
+export default UserProfilePage;

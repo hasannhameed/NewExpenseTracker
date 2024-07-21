@@ -1,78 +1,143 @@
+/* src/components/UserProfile.css */
 .user-profile-page {
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items on the page */
+}
+
+.nav-container {
+  padding: 0 20px;
   
-  .nav-container {
-    padding: 0 20px;
-  }
+  width: 100%; /* Make nav container full width */
+}
+
+.nav-title {
+  margin-left: 10%;
+  font-size: 1.5em; /* Adjust font size */
+}
+
+.navv-profile {
+  background-color: rgb(211, 193, 196);
+  margin-right: 10%;
+  border-radius: 10px;
+  padding : 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
   
-  .nav-title {
-    margin: 0;
+}
+
+.navv-profile a {
+  color: blue;
+  text-decoration: none;
+}
+
+.navv-profile a:hover {
+  color: darkblue;
+}
+
+.contact-details {
+  width: 80%; /* Reduce width for better fit on small screens */
+  padding: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Full width for small screens */
+}
+
+.cancel-button {
+  color: red;
+  border: 2px solid red;
+  padding: 10px 20px;
+  cursor: pointer;
+  background: none; /* Remove default background */
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adds space between input elements */
+  margin-top: 20px; /* Adds space below the header */
+}
+
+.input-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-container input {
+  margin-bottom: 15px;
+  padding: 8px;
+  width: 100%; /* Full width for inputs */
+  box-sizing: border-box;
+}
+
+.update-button {
+  background-color: rgb(165, 108, 108);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 20px; /* Adds space above the button */
+  align-self: flex-start; /* Aligns the button to the left */
+}
+
+/* Responsive styles for iPhone 12 (390px width) */
+@media (max-width: 390px) {
+  .contact-details {
+    width: 90%; /* Full width for small screens */
+    padding: 10px; /* Reduce padding for small screens */
   }
-  
-  .nav-profile {
+
+  .navv-profile {
+    padding: 10px;
+    width: 100%;
     background-color: rgb(211, 193, 196);
     margin-top: 5px;
     margin-bottom: 10px;
-    
   }
-  
-  .nav-profile a {
-    color: blue;
-    text-decoration: none;
-  }
-  
-  .nav-profile a:hover {
-    color: darkblue;
-  }
-  
-  .contact-details {
-    margin-left: 20%;
-    margin-right: 20%;
-    padding: 20px;
-  }
-  
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .cancel-button {
 
-    color: red;
-    border-color: 5px solid red;
-    padding: 10px 20px;
-    cursor: pointer;
+  .header-container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the start */
   }
-  
-  .input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Adds space between input elements */
-    margin-top: 20px; /* Adds space below the header */
-  }
-  
-  .input-container label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
+
   .input-container input {
-    margin-bottom: 15px;
-    padding: 8px;
-    width: 50%;
-    box-sizing: border-box;
+    width: 100%; /* Full width for inputs */
   }
-  
-  .update-button {
-    background-color: rgb(165, 108, 108);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-top: 20px; /* Adds space above the button */
-    align-self: flex-start; /* Aligns the button to the left */
+
+  .update-button, .cancel-button {
+    width: 100%; /* Full width for buttons */
+    text-align: center; /* Center align text */
+    margin-top: 10px; /* Add space between buttons */
   }
-  
+}
+
+/* Additional styles for other small screens */
+@media (max-width: 600px) {
+  .contact-details {
+    width: 90%; /* Adjust width for medium screens */
+    padding: 15px; /* Adjust padding for medium screens */
+  }
+
+  .navv-profile {
+    padding: 10px;
+  }
+
+  .header-container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  .input-container input {
+    width: 100%; /* Full width for inputs */
+  }
+
+  .update-button, .cancel-button {
+    width: 100%; /* Full width for buttons */
+    text-align: center; /* Center align text */
+    margin-top: 10px; /* Add space between buttons */
+  }
+}

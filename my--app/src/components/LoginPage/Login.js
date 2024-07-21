@@ -19,10 +19,10 @@ const Login = () => {
       const loggedInUser = userCredential.user;
       setUser(loggedInUser);
       alert('User logged in successfully!');
-      
+
     } catch (error) {
       console.error('Error logging in:', error);
-     alert('Error logging in: ' + error.message);
+      alert('Error logging in: ' + error.message);
     }
   };
 
@@ -57,7 +57,13 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        <Link to='/'>New user? Sign Up</Link>
+
         <button type="submit">Login</button>
+
+        <Link to='/reset'>Reset Password</Link>
+
         {user && (
           <button onClick={handleSendVerificationEmail} className="verify-email-button">
             Verify Email
@@ -65,12 +71,8 @@ const Login = () => {
         )}
         {error && <p className="error-message">{error}</p>}
       </form>
-      <button className="signup-button">
-        <Link to='/'>Don't have an account? Sign Up</Link>
-      </button>
-      <button className="signup-button">
-        <Link to='/reset'>ResetPassword</Link>
-      </button>
+
+
     </div>
   );
 };
