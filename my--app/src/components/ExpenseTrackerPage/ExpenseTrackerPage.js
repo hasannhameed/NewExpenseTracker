@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import LogoutButton from '../Lagoutbutton/lagoutbutton'
 import './ETP.css' // Import your CSS file here
 
 const ExpenseTrackerPage = () => {
@@ -11,6 +12,7 @@ const ExpenseTrackerPage = () => {
           <strong>Your profile is incomplete </strong>
           <Link to="/UserProfile"> Complete Now</Link>
         </p>
+        <LogoutButton />
       </nav>
       <hr />
     </div>
