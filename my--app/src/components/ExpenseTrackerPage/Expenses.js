@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ref, push, onValue } from 'firebase/database';
 import './expenses.css'; // Import your CSS file
+import database from './firebase'; // Import the database instance
 
 const Expenses = () => {
   const [amount, setAmount] = useState('');
@@ -7,26 +9,37 @@ const Expenses = () => {
   const [category, setCategory] = useState('Food');
   const [expenseList, setExpenseList] = useState([]);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const expensesRef = ref(database, 'expenses/');
+    onValue(expensesRef, (snapshot) => {
+      const data = snapshot.val();
+      const expenses = [];
+      for (let id in data) {
+        expenses.push({ id, ...data[id] });
+      }
+      setExpenseList(expenses);
+    });
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a new expense object with amount as a number
     const newExpense = {
-      amount: parseFloat(amount), // Convert amount to a number
+      amount: parseFloat(amount),
       description,
       category,
-      id: Date.now() // Unique id for the expense
+      timestamp: Date.now()
     };
 
-    // Update the expense list
-    setExpenseList([...expenseList, newExpense]);
-
-    // Clear form fields
-    setAmount('');
-    setDescription('');
-    setCategory('Food');
-
-    alert('Expense submitted successfully!');
+    try {
+      await push(ref(database, 'expenses/'), newExpense);
+      alert('Expense submitted successfully!');
+      setAmount('');
+      setDescription('');
+      setCategory('Food');
+    } catch (error) {
+      alert('Error submitting expense:', error.message);
+    }
   };
 
   // Calculate the total amount spent
@@ -79,7 +92,7 @@ const Expenses = () => {
           <ul>
             {expenseList.map(expense => (
               <li key={expense.id}>
-                <strong>Amount:</strong> ${expense.amount.toFixed(2)} | 
+                <strong>Amount:</strong> ₹{expense.amount.toFixed(2)} | 
                 <strong> Description:</strong> {expense.description} | 
                 <strong> Category:</strong> {expense.category}
               </li>
@@ -92,7 +105,7 @@ const Expenses = () => {
 
       <div className="total-spent">
         <h2>Total Spent</h2>
-        <p>${totalAmount.toFixed(2)}</p>
+        <p>₹{totalAmount.toFixed(2)}</p>
       </div>
     </div>
   );
