@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ref, push, onValue } from 'firebase/database';
+import { ref, push, onValue, remove, update } from 'firebase/database';
 import './expenses.css'; // Import your CSS file
 import database from './firebase'; // Import the database instance
 
@@ -8,6 +8,7 @@ const Expenses = () => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Food');
   const [expenseList, setExpenseList] = useState([]);
+  const [editingExpense, setEditingExpense] = useState(null);
 
   useEffect(() => {
     const expensesRef = ref(database, 'expenses/');
@@ -32,7 +33,12 @@ const Expenses = () => {
     };
 
     try {
-      await push(ref(database, 'expenses/'), newExpense);
+      if (editingExpense) {
+        await update(ref(database, `expenses/${editingExpense.id}`), newExpense);
+        setEditingExpense(null);
+      } else {
+        await push(ref(database, 'expenses/'), newExpense);
+      }
       alert('Expense submitted successfully!');
       setAmount('');
       setDescription('');
@@ -42,12 +48,28 @@ const Expenses = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await remove(ref(database, `expenses/${id}`));
+      alert('Expense deleted successfully!');
+    } catch (error) {
+      alert('Error deleting expense:', error.message);
+    }
+  };
+
+  const handleEdit = (expense) => {
+    setEditingExpense(expense);
+    setAmount(expense.amount);
+    setDescription(expense.description);
+    setCategory(expense.category);
+  };
+
   // Calculate the total amount spent
   const totalAmount = expenseList.reduce((total, expense) => total + expense.amount, 0);
 
   return (
     <div className="expenses-container">
-      <h1>Enter Your Expense</h1>
+      <h1>{editingExpense ? 'Edit Your Expense' : 'Enter Your Expense'}</h1>
       <form onSubmit={handleSubmit} className="expenses-form">
         <label htmlFor="amount">Money Spent</label>
         <input
@@ -83,7 +105,7 @@ const Expenses = () => {
           <option value="Utilities">Utilities</option>
         </select>
         
-        <button type="submit" className="submit-button">Submit</button>
+        <button type="submit" className="submit-button">{editingExpense ? 'Update' : 'Submit'}</button>
       </form>
 
       <div className="expenses-list">
@@ -95,6 +117,8 @@ const Expenses = () => {
                 <strong>Amount:</strong> ₹{expense.amount.toFixed(2)} | 
                 <strong> Description:</strong> {expense.description} | 
                 <strong> Category:</strong> {expense.category}
+                <button onClick={() => handleEdit(expense)} className="edit-button">Edit</button>
+                <button onClick={() => handleDelete(expense.id)} className="delete-button">Delete</button>
               </li>
             ))}
           </ul>

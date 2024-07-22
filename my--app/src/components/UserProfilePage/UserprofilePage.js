@@ -1,10 +1,10 @@
 // src/components/UserProfilePage.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { auth, db } from './firebase';
+import { auth, db } from './firebase'; // Ensure correct paths
 import { updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import './UPP.css'; 
+import './UPP.css';
 
 const UserProfilePage = () => {
   const [fullName, setFullName] = useState('');
@@ -15,6 +15,8 @@ const UserProfilePage = () => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         setCurrentUser(user);
+        setFullName(user.displayName || '');
+        setPhotoUrl(user.photoURL || '');
       } else {
         setCurrentUser(null);
       }
@@ -25,7 +27,6 @@ const UserProfilePage = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    console.log("Update button clicked");
 
     if (!currentUser) {
       alert('No user is currently logged in.');
@@ -33,14 +34,11 @@ const UserProfilePage = () => {
     }
 
     try {
-      console.log("Updating profile for user:", currentUser.uid);
-      // Update the user's profile
+      // Update the user's profile in Firebase Authentication
       await updateProfile(currentUser, {
         displayName: fullName,
         photoURL: photoUrl
       });
-
-      console.log("Profile updated in auth");
 
       // Save the updated user details in Firestore
       await setDoc(doc(db, 'users', currentUser.uid), {
@@ -48,7 +46,6 @@ const UserProfilePage = () => {
         photoUrl: photoUrl
       });
 
-      console.log("User details saved to Firestore");
       alert('Profile updated successfully!');
       setFullName('');
       setPhotoUrl('');
