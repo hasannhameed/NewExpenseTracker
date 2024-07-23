@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { ref, push, onValue, remove, update } from 'firebase/database';
 import './expenses.css'; // Import your CSS file
 import database from './firebase'; // Import the database instance
+import ExpenseList from './ExpensesList'; // Import the new ExpenseList component
 
 const Expenses = () => {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Food');
-  const [expenseList, setExpenseList] = useState([]);
+  const [expenseList, setExpenseList] = useState([]); // Ensure this is initialized as an array
   const [editingExpense, setEditingExpense] = useState(null);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Expenses = () => {
       amount: parseFloat(amount),
       description,
       category,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
 
     try {
@@ -105,31 +106,23 @@ const Expenses = () => {
           <option value="Utilities">Utilities</option>
         </select>
         
-        <button type="submit" className="submit-button">{editingExpense ? 'Update' : 'Submit'}</button>
+        <button type="submit" className="submit-button">
+          {editingExpense ? 'Update' : 'Submit'}
+        </button>
       </form>
 
-      <div className="expenses-list">
-        <h2>Daily Expenses</h2>
-        {expenseList.length > 0 ? (
-          <ul>
-            {expenseList.map(expense => (
-              <li key={expense.id}>
-                <strong>Amount:</strong> ₹{expense.amount.toFixed(2)} | 
-                <strong> Description:</strong> {expense.description} | 
-                <strong> Category:</strong> {expense.category}
-                <button onClick={() => handleEdit(expense)} className="edit-button">Edit</button>
-                <button onClick={() => handleDelete(expense.id)} className="delete-button">Delete</button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No expenses recorded yet.</p>
-        )}
-      </div>
+      <ExpenseList
+        expenses={expenseList}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
 
       <div className="total-spent">
         <h2>Total Spent</h2>
         <p>₹{totalAmount.toFixed(2)}</p>
+        {totalAmount > 10000 && (
+          <button className="activate-premium-button">Activate Premium</button>
+        )}
       </div>
     </div>
   );

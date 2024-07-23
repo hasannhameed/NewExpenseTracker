@@ -2,10 +2,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { authAction } from "../../Store/authSlice";
 import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Initialize dispatch
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
@@ -18,8 +21,10 @@ const Login = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const loggedInUser = userCredential.user;
       setUser(loggedInUser);
+      const bearerToken = await loggedInUser.getIdToken();
+      dispatch(authAction.login({ userId: loggedInUser.uid, bearerToken })); // Dispatch login action with userId and bearerToken
       alert('User logged in successfully!');
-
+      navigate('/ExpenseTracker');
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Error logging in: ' + error.message);
@@ -50,20 +55,18 @@ const Login = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
-
         <Link to='/'>New user? Sign Up</Link>
-
         <button type="submit">Login</button>
-
-        <Link to='/reset'>Reset Password</Link>
-
+        <Link to='/reset-password'>Reset Password</Link> {/* Link to the reset password page */}
         {user && (
           <button onClick={handleSendVerificationEmail} className="verify-email-button">
             Verify Email
@@ -71,8 +74,6 @@ const Login = () => {
         )}
         {error && <p className="error-message">{error}</p>}
       </form>
-
-
     </div>
   );
 };

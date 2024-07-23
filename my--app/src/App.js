@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './Store/store';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUpPage from './components/SignUpPage/SignUp';
 import LoginPage from './components/LoginPage/Login';
@@ -9,6 +11,7 @@ import './App.css';
 
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <Routes>
         <Route path="/" element={<SignUpPage />} />
@@ -19,6 +22,7 @@ function App() {
         {/* Add more routes here */}
       </Routes>
     </Router>
+    </Provider>
   );
 }
 
