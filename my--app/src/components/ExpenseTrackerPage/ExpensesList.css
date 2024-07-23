@@ -1,3 +1,4 @@
+/* Existing Styles */
 .expenses-list {
     margin-top: 20px;
     padding: 10px;
@@ -6,6 +7,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-height: 300px;
     overflow-y: auto;
+    transition: background-color 0.3s, color 0.3s; /* Added for smooth transition */
   }
   
   .expenses-list h2 {
@@ -71,6 +73,20 @@
   
   .delete-button:hover {
     background-color: #c82333;
+  }
+  
+  /* Dark Mode Styles */
+  .dark-mode .expenses-list {
+    background-color: #444;
+    color: #ddd;
+  }
+  
+  .dark-mode .expenses-list h2 {
+    color: #ddd;
+  }
+  
+  .dark-mode .expenses-list li {
+    border-bottom: 1px solid #666;
   }
   
   /* Responsive Design */

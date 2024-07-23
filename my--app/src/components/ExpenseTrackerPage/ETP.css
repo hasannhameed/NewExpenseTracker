@@ -1,4 +1,6 @@
 /* src/components/ETP.css */
+
+/* Base Styles */
 .expense-tracker-page {
   display: flex;
   flex-direction: column;
@@ -8,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f8f9fa; /* Optional: adds a background color to the nav */
+  background-color: #f8f9fa; /* Light theme background color */
   border-bottom: 2px solid black;
   padding: 10px;
 }
@@ -46,6 +48,28 @@
   border-radius: 5px;
   cursor: pointer;
   margin-left: 10px;
+}
+
+/* Dark Mode Styles */
+.dark-mode .nav-container {
+  background-color: #333; /* Dark theme background color */
+  border-bottom: 2px solid #444;
+}
+
+.dark-mode .nav-profile {
+  background-color: #444;
+}
+
+.dark-mode .nav-profile a {
+  color: #a0a0a0; /* Light link color in dark mode */
+}
+
+.dark-mode .nav-profile a:hover {
+  color: #ccc; /* Light link color on hover */
+}
+
+.dark-mode .logout-button {
+  background-color: #6e4c41; /* Darker brown for logout button in dark mode */
 }
 
 /* Responsive styles for iPhone 12 (390px width) */
@@ -95,6 +119,4 @@
     padding: 8px; /* Adjust padding for medium screens */
     margin-bottom: 10px; /* Add margin to separate elements */
   }
-
-  
 }

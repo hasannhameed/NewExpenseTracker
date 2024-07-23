@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { ref, push, onValue, remove, update } from 'firebase/database';
 import './expenses.css'; // Import your CSS file
 import database from './firebase'; // Import the database instance
 import ExpenseList from './ExpensesList'; // Import the new ExpenseList component
+import {toggleTheme} from '../../Store/themeReducer'; // Import the theme toggle action
 
 const Expenses = () => {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Food');
-  const [expenseList, setExpenseList] = useState([]); // Ensure this is initialized as an array
+  const [expenseList, setExpenseList] = useState([]);
   const [editingExpense, setEditingExpense] = useState(null);
+  const darkMode = useSelector((state) => state.theme.darkMode);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const expensesRef = ref(database, 'expenses/');
@@ -65,12 +69,30 @@ const Expenses = () => {
     setCategory(expense.category);
   };
 
-  // Calculate the total amount spent
   const totalAmount = expenseList.reduce((total, expense) => total + expense.amount, 0);
 
+  const handleDownload = () => {
+    const csvRows = [];
+    // Headers
+    csvRows.push(['Amount', 'Description', 'Category'].join(','));
+    // Data
+    expenseList.forEach(({ amount, description, category }) => {
+      csvRows.push([amount, description, category].join(','));
+    });
+    // Create a Blob
+    const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'expenses.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
-    <div className="expenses-container">
+    <div className={`expenses-container ${darkMode ? 'dark-mode' : ''}`}>
       <h1>{editingExpense ? 'Edit Your Expense' : 'Enter Your Expense'}</h1>
+      <button onClick={() => dispatch(toggleTheme())}>ChangeTheme</button>
       <form onSubmit={handleSubmit} className="expenses-form">
         <label htmlFor="amount">Money Spent</label>
         <input
@@ -121,7 +143,14 @@ const Expenses = () => {
         <h2>Total Spent</h2>
         <p>₹{totalAmount.toFixed(2)}</p>
         {totalAmount > 10000 && (
-          <button className="activate-premium-button">Activate Premium</button>
+          <>
+            <button className="activate-premium-button">
+              Activate Premium
+            </button>
+            <button className="download-button" onClick={handleDownload}>
+              Download CSV
+            </button>
+          </>
         )}
       </div>
     </div>

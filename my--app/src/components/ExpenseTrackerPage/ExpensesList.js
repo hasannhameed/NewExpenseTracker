@@ -1,9 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './ExpensesList.css'; // Import your CSS file
 
 const ExpenseList = ({ expenses = [], onEdit, onDelete }) => {
+  // Get dark mode state from Redux store
+  const darkMode = useSelector((state) => state.theme.darkMode);
+
   return (
-    <div className="expenses-list">
+    <div className={`expenses-list ${darkMode ? 'dark-mode' : ''}`}>
       <h2>Daily Expenses</h2>
       {expenses.length > 0 ? (
         <ul>

@@ -1,13 +1,15 @@
 /* src/components/UserProfile.css */
+
+/* Base Styles */
 .user-profile-page {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center align items on the page */
+  
 }
 
 .nav-container {
   padding: 0 20px;
-  
   width: 100%; /* Make nav container full width */
 }
 
@@ -20,10 +22,9 @@
   background-color: rgb(211, 193, 196);
   margin-right: 10%;
   border-radius: 10px;
-  padding : 10px;
+  padding: 10px;
   margin-top: 5px;
   margin-bottom: 10px;
-  
 }
 
 .navv-profile a {
@@ -84,6 +85,47 @@
   align-self: flex-start; /* Aligns the button to the left */
 }
 
+/* Dark Mode Styles */
+.dark-mode .nav-container {
+  background-color: #333; /* Dark theme background color */
+}
+
+.dark-mode .navv-profile {
+  background-color: #444; /* Darker background for profile section */
+}
+
+.dark-mode .navv-profile a {
+  color: #a0a0a0; /* Light link color in dark mode */
+}
+
+.dark-mode .navv-profile a:hover {
+  color: #ccc; /* Light link color on hover */
+}
+
+.dark-mode .contact-details {
+  background-color: #444; /* Dark background for contact details */
+  color: #ddd; /* Light text color */
+}
+
+.dark-mode .header-container {
+  background-color: #333; /* Dark theme background color for header */
+}
+
+.dark-mode .cancel-button {
+  color: #ff6f6f; /* Lighter red color for cancel button in dark mode */
+  border: 2px solid #ff6f6f;
+}
+
+.dark-mode .input-container input {
+  background-color: #555; /* Dark background for inputs */
+  color: #ddd; /* Light text color */
+  border: 1px solid #666; /* Darker border for inputs */
+}
+
+.dark-mode .update-button {
+  background-color: rgb(165, 108, 108); /* Use existing color for dark mode */
+}
+
 /* Responsive styles for iPhone 12 (390px width) */
 @media (max-width: 390px) {
   .contact-details {
@@ -94,7 +136,6 @@
   .navv-profile {
     padding: 10px;
     width: 100%;
-    background-color: rgb(211, 193, 196);
     margin-top: 5px;
     margin-bottom: 10px;
   }
